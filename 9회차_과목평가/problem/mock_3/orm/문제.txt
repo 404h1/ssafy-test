@@ -1,0 +1,40 @@
+[ORM 문제] mock_3
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+답안 작성 파일 : orm/data.py
+프로젝트의 Article, Comment, User 모델을 기준으로 작성하시오.
+
+모델 관계:
+  User  ──1:N──▶  Article  (related_name='articles')
+  User  ──M:N──▶  Article  (like_users / related_name='like_articles')
+  User  ──1:N──▶  Comment  (related_name='comments')
+  Article ─1:N──▶ Comment  (related_name='comments')
+  User  ──M:N──▶  User     (followings / related_name='followers')
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+문제 ORM-01. 내 게시글 최신순 조회
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+현재 로그인한 유저(request.user)가 작성한 게시글을
+최신순으로 조회하는 ORM 쿼리를 작성하시오.
+
+[ 예상 결과 형태 ]
+<QuerySet [<Article: ...>, ...]>
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+문제 ORM-02. 좋아요 많은 게시글 상위 3개
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+좋아요 수가 가장 많은 게시글 상위 3개를 조회하는
+ORM 쿼리를 작성하시오.
+(힌트: annotate, Count, order_by 사용)
+
+[ 예상 결과 형태 ]
+<QuerySet [<Article: ...>, ...]>  # 최대 3개
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+문제 ORM-03. 특정 게시글에 댓글 단 유저 목록
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+특정 게시글(article)에 댓글을 작성한 유저 목록을
+중복 없이 조회하는 ORM 쿼리를 작성하시오.
+(힌트: filter, distinct 사용)
+
+[ 예상 결과 형태 ]
+<QuerySet [<User: ...>, ...]>
