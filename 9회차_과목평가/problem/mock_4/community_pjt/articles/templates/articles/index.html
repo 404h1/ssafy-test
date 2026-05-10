@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>게시글 목록</h1>
+  {% if request.user.is_authenticated %}
+    <a href="{% url 'articles:create' %}">[새 게시글 작성]</a>
+  {% endif %}
+
+  <ul>
+    {% for article in articles %}
+      <li>
+        <a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a>
+        &nbsp;|&nbsp; 작성자:
+        <a href="{% url 'accounts:profile' article.user.username %}">{{ article.user.username }}</a>
+
+        {% if request.user.is_authenticated %}
+          <form action="{% url 'articles:like' article.pk %}" method="POST" style="display:inline;">
+            {% csrf_token %}
+            {% if request.user in article.like_users.all %}
+              <button type="submit">❤️ {{ article.like_users.count }}</button>
+            {% else %}
+              <button type="submit">🤍 {{ article.like_users.count }}</button>
+            {% endif %}
+          </form>
+        {% else %}
+          <span>🤍 {{ article.like_users.count }}</span>
+        {% endif %}
+      </li>
+    {% empty %}
+      <li>게시글이 없습니다.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
