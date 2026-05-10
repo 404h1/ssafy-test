@@ -34,9 +34,11 @@
     <p>댓글이 없습니다.</p>
   {% endfor %}
 
-  <form action="{% url 'articles:comment_create' article.pk %}" method="POST">
-    {% csrf_token %}
-    {{ comment_form.as_p }}
-    <button type="submit">댓글 작성</button>
-  </form>
+  {% if request.user.is_authenticated %}
+    <form action="{% url 'articles:comment_create' article.pk %}" method="POST">
+      {% csrf_token %}
+      {{ comment_form.as_p }}
+      <button type="submit">댓글 작성</button>
+    </form>
+  {% endif %}
 {% endblock %}

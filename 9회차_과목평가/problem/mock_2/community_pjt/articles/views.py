@@ -64,7 +64,6 @@ def delete(request, pk):
     return redirect('articles:index')
 
 
-@login_required
 @require_POST
 def comment_create(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
