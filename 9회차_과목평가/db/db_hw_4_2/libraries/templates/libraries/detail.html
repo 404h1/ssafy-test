@@ -1,0 +1,12 @@
+<!-- libraries/templates/libraries/detail.html -->
+<!-- 책 상세 정보를 확인 할 수 있는 페이지를 제공한다. -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>책 상세 정보</h1>
+  <p>등록 번호 : {{ book.pk }}</p>
+  <p>제목 : {{ book.title }}</p>
+  <p>설명 : {{ book.description }}</p>
+  <hr>
+{% endblock content %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>예약 생성 페이지</h1>
+<form action="{% url "reservations:create" %}" method = 'POST'>
+    {% csrf_token %}
+    {{form}}
+    <button type = 'submit'>예약 생성</button>
+
+
+
+</form>
+
+
+
+
+{% endblock content %}
+
+
+
+
+

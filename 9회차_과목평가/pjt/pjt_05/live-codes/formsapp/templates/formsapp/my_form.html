@@ -1,0 +1,24 @@
+{% extends "formsapp/form-base.html" %}
+{% block content %}
+<div class="form-container">
+  <div class="form-header">
+    <h2>My Form</h2>
+    <p class="text-muted">select multiple 태그를 변경하는 예제입니다. views.py에서 print 결과를 확인해보세요.</p>
+  </div>
+
+  <div class="form-section">
+    <h4>My Form 렌더링 결과</h4>
+    <div class="card">
+      <div class="card-body">
+        <form method="post" action="">
+          {% csrf_token %}
+          <div class="mb-3">
+            {{ form }}
+            <button type="submit" class="btn btn-primary">제출</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

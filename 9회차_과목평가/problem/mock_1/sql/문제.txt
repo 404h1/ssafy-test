@@ -1,0 +1,75 @@
+[SQL 문제] mock_1
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+답안 작성 파일 : sql/data.sql
+DB 파일        : sql/company.sqlite3  (schema.sql 실행 후 생성됨)
+
+환경 구성 방법:
+  1. VSCode에서 company.sqlite3 파일을 생성
+  2. schema.sql 파일을 열고 전체 선택 후 Run Selected Query 실행
+  3. data.sql 파일에서 각 문제의 SQL을 작성하고 실행
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+테이블 구조
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[ departments 테이블 ]
+  id          INTEGER  PRIMARY KEY
+  name        TEXT     부서명
+  location    TEXT     위치
+  budget      INTEGER  예산
+
+[ employees 테이블 ]
+  id            INTEGER  PRIMARY KEY
+  name          TEXT     직원명
+  department_id INTEGER  departments.id 참조 (외래키)
+  salary        INTEGER  연봉
+  hire_date     TEXT     입사일 (YYYY-MM-DD)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+문제 S-01. 급여 조건 조회
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+employees 테이블에서 salary가 60000 이상인 직원의
+name, salary를 salary 내림차순으로 조회하시오.
+
+[ 예상 결과 ]
+name    | salary
+--------|--------
+오승현  | 90000
+이서연  | 82000
+김민준  | 75000
+강하늘  | 67000
+최예진  | 61000
+임나은  | 63000
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+문제 S-02. 부서별 집계 (GROUP BY + HAVING)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+employees 테이블을 department_id로 그룹화하여
+각 부서의 직원 수(employee_count)와 평균 연봉(avg_salary)을 조회하시오.
+단, 직원 수가 2명 이상인 부서만 출력하고,
+평균 연봉 내림차순으로 정렬하시오.
+avg_salary는 소수점 없이 정수로 출력하시오. (CAST 또는 ROUND 활용)
+
+[ 예상 결과 ]
+department_id | employee_count | avg_salary
+--------------|----------------|----------
+1             | 3              | 82333
+4             | 2              | 61000
+2             | 3              | 62000
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+문제 S-03. 테이블 JOIN 조회
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+employees와 departments를 JOIN하여
+직원 이름(name), 부서 이름(dept_name), 부서 위치(location)를 조회하시오.
+단, 서울에 위치한 부서 소속 직원만 조회하고,
+직원 이름 오름차순으로 정렬하시오.
+
+[ 예상 결과 ]
+name    | dept_name | location
+--------|-----------|----------
+김민준  | 개발       | 서울
+이서연  | 개발       | 서울
+오승현  | 개발       | 서울
+정우성  | 인사       | 서울
+한지민  | 인사       | 서울

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>게시글 수정</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">수정</button>
+    <a href="{% url 'articles:detail' article.pk %}">취소</a>
+  </form>
+{% endblock %}
