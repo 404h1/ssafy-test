@@ -1,0 +1,77 @@
+[SQL 문제] mock_5
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+답안 작성 파일 : sql/data.sql
+DB 파일        : sql/sample.sqlite3  (schema.sql 실행 후 생성됨)
+
+환경 구성:
+  1. VSCode에서 sample.sqlite3 파일 생성
+  2. schema.sql 전체 선택 → Run Selected Query 실행
+  3. data.sql에 각 문제 SQL 작성 후 실행
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+테이블 구조
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[ User ]
+  Id, Username, Email, Password, CreatedAt, UpdatedAt
+
+[ Product ]
+  Id, Name, Price(REAL), StockQuantity(INTEGER), CategoryId(INTEGER), CreatedAt
+
+[ Purchase ]
+  Id, UserId(FK→User), TotalPrice(REAL), Status(TEXT), CreatedAt
+
+[ PurchaseItem ]
+  Id, PurchaseId(FK→Purchase), ProductId(FK→Product), Quantity(INTEGER), Price(REAL)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+문제 S-01. 재고가 없는 상품 조회 (10점)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Product 테이블에서 StockQuantity가 0인 상품의
+Name과 Price를 조회하시오.
+결과는 Price 오름차순으로 정렬하시오.
+
+[ 예상 결과 ]
+Name            | Price
+----------------|-------
+Slim Jeans      | 59.9
+Canvas Sneakers | 59.0
+Chino Pants     | 54.9
+Puffer Jacket   | 129.0
+
+(정렬 기준: Price ASC)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+문제 S-02. 완료 주문 기준 사용자별 총 결제 금액 조회 (10점)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+User 테이블과 Purchase 테이블을 JOIN하여
+Status가 'completed'인 주문만을 대상으로,
+사용자 이름(Username)과 총 결제 금액(total_spent)을 조회하시오.
+결과는 total_spent 내림차순으로 정렬하시오.
+
+[ 예상 결과 ]
+Username | total_spent
+---------|------------
+alice    | 587.5
+choi     | 389.9
+fiona    | 194.0
+bob      | 89.0
+jung     | 79.0
+kim      | 64.0
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+문제 S-03. 재고가 있는 상품의 카테고리별 상품 수 조회 (5점)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Product 테이블에서 StockQuantity가 0보다 큰 상품을 대상으로,
+카테고리별 상품 수(product_count)를 조회하시오.
+결과 컬럼명은 CategoryId, product_count로 표시하시오.
+결과는 product_count 내림차순으로 정렬하시오.
+
+[ 예상 결과 ]
+CategoryId | product_count
+-----------|-------------
+4          | 3
+1          | 2
+3          | 2
+2          | 1
+5          | 1
