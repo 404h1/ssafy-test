@@ -1,0 +1,78 @@
+[서술형 문제] mock_6 재평가 대비
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+답안 작성 파일 : 서술형/answer.txt
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+문제 09. ModelForm과 commit=False (10점)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+(1) 아래 두 코드의 차이점을 설명하시오. (4점)
+
+  [코드 A]
+  def create(request):
+      form = TodoForm(request.POST, request.FILES)
+      if form.is_valid():
+          form.save()
+          return redirect('todos:index')
+
+  [코드 B]
+  def create(request):
+      form = TodoForm(request.POST, request.FILES)
+      if form.is_valid():
+          todo = form.save(commit=False)
+          todo.user = request.user
+          todo.save()
+          return redirect('todos:index')
+
+(2) ModelForm의 Meta 클래스에서 fields와 exclude의 차이를 설명하시오. (3점)
+
+(3) 아래 빈칸을 채워 할일(Todo) 작성 폼을 완성하시오. (3점)
+    (Todo 모델: user, title, content, image 필드를 가짐)
+
+  class TodoForm(forms.___①___):
+      class Meta:
+          model = ___②___
+          fields = ___③___    # user를 제외한 나머지 필드 모두 포함
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+문제 10. CSRF와 View Decorator (10점)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+(1) CSRF(Cross-Site Request Forgery)란 무엇인지 설명하시오. (3점)
+
+(2) Django에서 CSRF를 방어하는 두 가지 요소를 쓰고 각각의 역할을 설명하시오. (4점)
+    힌트: settings.py(MIDDLEWARE)와 template
+
+(3) 아래 뷰 함수에서 사용된 데코레이터의 역할을 설명하고,
+    이 데코레이터가 없을 때 발생할 수 있는 문제를 서술하시오. (3점)
+
+  from django.views.decorators.http import require_POST
+
+  @login_required
+  @require_POST
+  def delete(request, pk):
+      todo = get_object_or_404(Todo, pk=pk)
+      if request.user == todo.user:
+          todo.delete()
+      return redirect('todos:index')
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+문제 11. URL 네임스페이스와 static 태그 (5점)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+(1) 아래 urls.py에서 app_name을 설정하는 이유를 설명하고,
+    template에서 이 URL을 참조하는 올바른 방법을 작성하시오. (3점)
+
+  # todos/urls.py
+  app_name = 'todos'
+  urlpatterns = [
+      path('', views.index, name='index'),
+      path('create/', views.create, name='create'),
+      ...
+  ]
+
+  # template에서 create URL 참조 방법:
+  (빈칸을 채우시오)  <a href="{% url '___' %}">새 할일 작성</a>
+
+(2) Django template에서 static 파일을 사용하려면 반드시 해야 하는 두 가지를 쓰시오. (2점)
+    (settings.py 설정 제외)

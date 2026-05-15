@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}{{ user.username }}의 팔로잉{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title mb-4">{{ user.username }}의 팔로잉</h1>
+    <div class="row">
+      {% for following in user.followings.all %}
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ following.username }}</h5>
+            <a href="{% url 'accounts:profile' following.username %}" class="btn btn-outline-primary btn-sm">프로필 보기</a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p>팔로잉하는 사용자가 없습니다.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
