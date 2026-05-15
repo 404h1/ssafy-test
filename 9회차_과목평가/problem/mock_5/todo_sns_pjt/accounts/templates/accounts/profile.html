@@ -20,7 +20,6 @@
         </div>
 
         {% if request.user != user %}
-          {# Bug 05: user.username 을 전달 → NoReverseMatch (follow URL은 int:user_pk를 받아야 함) #}
           <form action="{% url 'accounts:follow' user.username %}" method="POST" class="mt-2">
             {% csrf_token %}
             {% if request.user in user.followers.all %}

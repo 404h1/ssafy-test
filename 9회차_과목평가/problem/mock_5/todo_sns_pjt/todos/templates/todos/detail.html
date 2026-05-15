@@ -49,7 +49,6 @@
           on {{ comment.created_at|date:"Y-m-d" }}
         </small>
         {% if request.user == comment.user %}
-        {# Bug 08: method="get" → 댓글 삭제 안됨 #}
         <form action="{% url 'todos:comment_delete' todo.pk comment.pk %}" method="get" class="d-inline">
           {% csrf_token %}
           <button type="submit" class="btn btn-sm btn-outline-danger">삭제</button>

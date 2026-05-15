@@ -4,7 +4,6 @@
 <div class="card">
   <div class="card-body">
     <h1 class="card-title">새 할일 작성</h1>
-    {# Bug 06: enctype="multipart/form-data" 누락 → 이미지 저장 안됨 #}
     <form method="POST">
       {% csrf_token %}
       {% for field in form %}

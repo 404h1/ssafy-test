@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{# Bug 06: {% load static %} 누락 → TemplateSyntaxError: Invalid block tag 'static' #}
 {% block title %}{{ todo.title }}{% endblock %}
 {% block content %}
 <div class="card mb-4">
@@ -38,7 +37,6 @@
     {% if request.user.is_authenticated %}
     <form action="{% url 'todos:comment_create' todo.pk %}" method="POST" class="mb-4">
       {% csrf_token %}
-      {# Bug 04: context key가 'form'이라 comment_form 변수 없음 → 폼 미표시 #}
       {{ comment_form.as_p }}
       <button type="submit" class="btn btn-primary">댓글 작성</button>
     </form>

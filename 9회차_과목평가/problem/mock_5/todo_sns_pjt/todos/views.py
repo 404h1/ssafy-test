@@ -5,7 +5,6 @@ from .forms import TodoForm, CommentForm
 
 
 def index(request):
-    # Bug 01: 정렬 없음 → 최신순으로 표시되지 않음
     todos = Todo.objects.all()
     context = {
         'todos': todos,
@@ -49,7 +48,6 @@ def update(request, pk):
             form.save()
             return redirect('todos:detail', pk=pk)
     else:
-        # Bug 03: instance=todo 누락 → 수정 폼에 기존 데이터 미표시
         form = TodoForm()
     context = {
         'form': form,
@@ -66,7 +64,6 @@ def delete(request, pk):
     return redirect('todos:index')
 
 
-# Bug 02: @login_required 누락 → 비로그인 사용자 접근 가능
 def comment_create(request, pk):
     todo = get_object_or_404(Todo, pk=pk)
     if request.method == 'POST':
@@ -74,7 +71,6 @@ def comment_create(request, pk):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.todo = todo
-            # Bug 04: comment.user = request.user 누락 → IntegrityError
             comment.save()
             return redirect('todos:detail', pk=pk)
     return redirect('todos:detail', pk=pk)

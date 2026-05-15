@@ -33,7 +33,6 @@ def detail(request, pk):
     comment_form = CommentForm()
     context = {
         'todo': todo,
-        # Bug 04: context key가 'form'으로 잘못됨 → template의 {{ comment_form }} 미표시
         'form': comment_form,
     }
     return render(request, 'todos/detail.html', context)
@@ -59,7 +58,6 @@ def update(request, pk):
 
 
 @login_required
-# Bug 02: @require_POST 누락 → GET 요청으로도 삭제 가능
 def delete(request, pk):
     todo = get_object_or_404(Todo, pk=pk)
     if request.user == todo.user:

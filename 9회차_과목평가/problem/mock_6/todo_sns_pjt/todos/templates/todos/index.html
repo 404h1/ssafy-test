@@ -7,7 +7,6 @@
 {% endif %}
 
 <div class="row">
-  {# Bug 01: 'todo_list'로 접근 → context key는 'todos' → 목록 미출력 #}
   {% for todo in todo_list %}
   <div class="col-md-6 mb-4">
     <div class="card h-100">

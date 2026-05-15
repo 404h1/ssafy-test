@@ -37,7 +37,6 @@ def logout(request):
     return redirect('todos:index')
 
 
-# Bug 07: @login_required 누락 → 비로그인 사용자도 프로필 접근 가능
 def profile(request, username):
     user = get_object_or_404(User, username=username)
     context = {'user': user}

@@ -9,7 +9,6 @@ urlpatterns = [
     path('<int:pk>/', views.detail, name='detail'),
     path('<int:pk>/update/', views.update, name='update'),
     path('<int:pk>/delete/', views.delete, name='delete'),
-    # Bug 03: name이 'comments'로 잘못됨 → {% url 'todos:comment_create' %} NoReverseMatch
     path('<int:pk>/comments/', views.comment_create, name='comments'),
     path('<int:pk>/comments/<int:comment_pk>/delete/', views.comment_delete, name='comment_delete'),
     path('<int:pk>/toggle/', views.toggle_complete, name='toggle_complete'),

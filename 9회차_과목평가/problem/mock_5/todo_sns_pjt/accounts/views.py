@@ -12,7 +12,6 @@ def signup(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            # Bug 07: auth_login(request, user) 누락 → 회원가입 후 로그아웃 상태
             return redirect('todos:index')
     else:
         form = CustomUserCreationForm()
